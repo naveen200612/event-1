@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Event Management Portal</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, "Times New Roman", sans-serif;
+            background-color: #0f172a;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #0ef777;
+            margin-bottom: 5px;
+        }
+        h2 {
+            color: #38bdf8;
+            font-weight: normal;
+            margin-top: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: left;
+        }
+        .badge {
+            background-color: #7c3aed;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+        }
+        .btn:hover {
+            background-color: #1d4ed8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background-color: #1e293b;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #334155;
+            text-align: left;
+        }
+        th {
+            background-color: #0f172a;
+            color: #38bdf8;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #334155;
+            background-color: #0f172a;
+            color: white;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CI/CD Event Portal Working</h1>
+        <h2>Deployed using Jenkins + Docker + Kubernetes (3 Replicas Cluster Mode)</h2>
+        <p>This event management web system updates dynamically via rolling pipeline releases.</p>
+
+        <!-- Student Browse Section -->
+        <h3 style="text-align: left; border-bottom: 2px solid #334155; padding-bottom: 10px; color: #0ef777;">Upcoming Campus Events</h3>
+        <div class="grid">
+            <div class="card">
+                <span class="badge">Hackathon</span>
+                <h3>Hack-A-Thon 2026</h3>
+                <p>36-hour sustainability programming sprint challenge.</p>
+                <p><small>📍 CSE Lab 3 | 👥 Max: 120 seats</small></p>
+                <button class="btn" onclick="register('Hack-A-Thon 2026')">Register</button>
+            </div>
+            <div class="card">
+                <span class="badge">Symposium</span>
+                <h3>TechXplore Symposium</h3>
+                <p>National level technical paper and project exhibitions.</p>
+                <p><small>📍 Main Auditorium | 👥 Max: 250 seats</small></p>
+                <button class="btn" onclick="register('TechXplore Symposium')">Register</button>
+            </div>
+            <!-- Placement Webpage Segment (Modified via Git Step) -->
+            <div class="card" id="placement-card">
+                <span class="badge" style="background-color: #eab308;">Placement Opportunity</span>
+                <h3>Google Elite Drive 2026</h3>
+                <p>Campus recruitment drive for cloud engineering tracks.</p>
+                <p><small>📍 Placement Block | 👥 Status: Open</small></p>
+                <button class="btn" style="background-color: #eab308; color: black;" onclick="register('Google Elite Drive 2026')">Apply Now</button>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left;">
+            <!-- Registration Desk Tracking -->
+            <div>
+                <h3 style="color: #0ef777;">My Registration Tracker</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Event Title</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reg-table">
+                        <tr>
+                            <td>Inter-College Culturals</td>
+                            <td style="color: #0ef777;">Confirmed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Faculty Coordinator Dashboard Actions -->
+            <div class="card">
+                <h3 style="margin-top:0; color:#38bdf8;">Faculty Coordinator Panel</h3>
+                <form onsubmit="addEvent(event)">
+                    <div class="form-group">
+                        <label>Event Name:</label>
+                        <input type="text" id="evName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Participant Threshold Limit:</label>
+                        <input type="number" id="evLimit" required>
+                    </div>
+                    <button type="submit" class="btn" style="background-color: #10b981;">Broadcast Event</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function register(name) {
+            var table = document.getElementById('reg-table');
+            var row = table.insertRow();
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = name;
+            cell2.innerHTML = "Processing";
+            cell2.style.color = "#eab308";
+            alert("Dispatched registration request for: " + name);
+        }
+        function addEvent(e) {
+            e.preventDefault();
+            var name = document.getElementById('evName').value;
+            alert("Successfully authorized and scheduled event: " + name);
+            document.getElementById('evName').value = '';
+            document.getElementById('evLimit').value = '';
+        }
+    </script>
+</body>
+</html>
