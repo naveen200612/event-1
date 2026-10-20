@@ -19,7 +19,9 @@ spec:
     spec:
       containers:
       - name: event-demo
-        image: naveen200612/event-demo:latest
+        # Aligned to match your pipeline's image name so it pulls successfully
+        image: naveen200612/html-demo:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 ---
